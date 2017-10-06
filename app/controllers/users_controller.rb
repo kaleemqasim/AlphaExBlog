@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :set_params, except: [:index, :new, :create]
   before_action :require_user, only: [:edit, :update, :destroy]
   before_action :require_same_user, only: [:edit, :update, :destroy]
 
@@ -11,7 +12,9 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(params_users)
+
     if @user.save
+      session[:user_id] = @user.id
       flash[:success] = "Accout has been successfully created"
       redirect_to root_path
     else
@@ -20,20 +23,30 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
   end
 
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
     if @user.update(params_users)
       flash[:success] = "User profile was successfully updated"
       redirect_to root_path
     else
       render 'edit'
+    end
+  end
+
+  def destroy
+    if @current_user == @user
+      session[:user_id] = nil
+      @user.destroy
+      flash[:success] = "You've successfully deleted your account and logged out"
+      redirect_to root_path
+    else
+      @user.destroy
+      flash.now[:success] = "You have successfully deleted the account"
+      redirect_to users_path
     end
   end
 
@@ -48,4 +61,7 @@ class UsersController < ApplicationController
     end
   end
 
+  def set_params
+    @user = User.find(params[:id])
+  end
 end

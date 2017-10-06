@@ -16,7 +16,11 @@
 			<div class="article-body center">
 				<small><%= pluralize(user.articles.count, "article") %></small>
 			</div>
+			<div align="center">
+			<%= link_to "Delete User", user_path(user), method: :delete, data: {confirm: "Are you sure you want to delete this account and all the articles?"}, class: "btn btn-danger btn-md" %>
 		</div>
+		</div>
+
 		
 	<% end %>
 </div>
