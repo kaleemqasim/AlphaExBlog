@@ -1,0 +1,25 @@
+<style>
+    body{
+        background-color: black;
+    }
+</style>
+    <div class="loginbody">
+    <%= form_for(:session, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+      <div class="logincontainer">
+        <div class="row col-md-8 col-xs-offset-2">
+        <div id="logbox">
+          
+            <h1>Log in your account</h1>
+            <%= f.text_field :username, type: "text", autofocus: true, placeholder: "Enter your username", class: "input pass"%>
+            <%= f.password_field :password, type: "password", placeholder:"Choose a password", class: "input pass" %>
+            <%= f.submit "Log in", class: "inputButton" %>
+
+            <div class="text-center">
+                Dont have an account? <%= link_to "Sign up", signup_path, id:"login_id" %>
+            </div>
+
+        </div>
+       </div>
+     </div>
+    <% end %>
+    </div>

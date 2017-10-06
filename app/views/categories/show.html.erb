@@ -1,0 +1,26 @@
+<h1 align="center">Listing all articles of <%= @category.name %> </h1>
+<hr><br>
+<div align="center">
+	<%= will_paginate @article_categories %>
+</div>
+
+<div class="col-xs-12" style="margin-bottom: 100px; padding-bottom: 100px;">
+	<% @category.articles.each do |article| %>
+		<div class="well col-xs-3 custom-article-index">
+			<div class="center article-title">
+				<%= link_to article.title, article_path(article) %>
+			</div>
+			<hr>
+			<div class="article-body">
+				<%= truncate(article.description, length: 50) %>
+			</div>
+			<% if logged_in? && ((current_user == article.user) || current_user.admin?) %>
+				<hr>
+				<%= link_to "Edit this article", edit_article_path(article), class: "btn btn-primary btn-sm" %>
+				<%= link_to "Delete this article", article_path(article), method: :delete, data: {confirm: "Are you sure you want to delete this article?"}, class: "btn btn-danger btn-sm" %>
+			<% end %>
+			
+		</div>
+		
+	<% end %>
+</div>

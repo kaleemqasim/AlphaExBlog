@@ -1,0 +1,24 @@
+<h1 align="center">Listing all users</h1>
+<hr><br>
+<div align="center">
+	<%= will_paginate @users %>
+</div>
+<div style="margin-bottom: 100px; padding-bottom: 100px">
+<div class="col-xs-12">
+	<% @users.each do |user| %>
+		<div class="well col-xs-2 custom-article-index">
+			<div class="center">
+				<%= gravatar_for user, size: 170 %>
+			</div>
+			<div class="center article-title">
+				<%= link_to user.username, user_path(user) %>
+			</div>
+			<div class="article-body center">
+				<small><%= pluralize(user.articles.count, "article") %></small>
+			</div>
+		</div>
+		
+	<% end %>
+</div>
+</div>
+

@@ -1,0 +1,23 @@
+<%= render 'shared/errors', obj: @user %>
+
+<div class="loginbody">
+<%= form_for(@user, :html => {class: "form-horizontal", role: "form"}) do |f| %>
+  <div class="logincontainer">
+    <div class="row col-md-8 col-xs-offset-2">
+    <div id="logbox">
+      
+        <h1>Create an account</h1>
+        <%= f.text_field :username, type: "text", autofocus: true, placeholder: "Enter your username", class: "input pass"%>
+        <%= f.password_field :password, type: "password", placeholder:"Choose a password", class: "input pass" %>
+        <%= f.email_field :email, placeholder: "Email address", class: "input pass" %>
+        <%= f.submit "Sign up", class: "inputButton" %>
+
+        <div class="text-center">
+            Already have an account? <%= link_to "Log in", login_path, id:"login_id" %>
+        </div>
+
+    </div>
+   </div>
+ </div>
+<% end %>
+</div>
